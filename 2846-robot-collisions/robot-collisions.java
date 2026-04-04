@@ -18,63 +18,38 @@ class Solution {
                 continue;
             }
 
-            if(dq.peekLast()[2]==1 && node[2]==-1){
-                if(dq.peekLast()[1]>node[1]){
-                    int[] popped= dq.pollLast();
-                    popped[1]=popped[1]-1;
-                    dq.offerLast(popped);
-                    continue;
-                }else if(dq.peekLast()[1]==node[1]){
-                    dq.pollLast();
-                    continue;
-                }else{
-                    while(!dq.isEmpty() && dq.peekLast()[1]<node[1] && dq.peekLast()[2]==1){
+            if(dq.peekLast()[2] == 1 && node[2] == -1){
+
+                while(!dq.isEmpty() && dq.peekLast()[2] == 1){
+
+                    int[] top = dq.peekLast();
+
+                    if(top[1] < node[1]){
                         dq.pollLast();
-                        node[1]=node[1]-1;
+                        node[1]--;
                     }
-                    if(dq.isEmpty()) {
-                        dq.add(node);continue;
+                    else if(top[1] == node[1]){
+                        dq.pollLast();
+                        node = null;
+                        break;
                     }
-
-                    if(dq.peekLast()[2]==-1){//top node is going left=all good
-                        dq.offerLast(node);
-                        continue;
-                    }else{
-                        int[] top = dq.pollLast();
-
-                        if(top[1] > node[1]){
-                            top[1]--;
-                            dq.offerLast(top);
-                            continue;
-                        } else if(top[1] == node[1]){
-                            continue; // both destroyed
-                        } else {
-                            node[1]--;
-                            // continue collision with next elements
-                            while(!dq.isEmpty() && dq.peekLast()[2]==1 && dq.peekLast()[1] < node[1]){
-                                dq.pollLast();
-                                node[1]--;
-                            }
-
-                            if(dq.isEmpty() || dq.peekLast()[2]==-1){
-                                dq.offerLast(node);
-                            } else {
-                                int[] t = dq.pollLast();
-                                if(t[1] > node[1]){
-                                    t[1]--;
-                                    dq.offerLast(t);
-                                } else if(t[1] < node[1]){
-                                    node[1]--;
-                                    dq.offerLast(node);
-                                }
-                            }
-                        }
+                    else{
+                        top[1]--;
+                        node = null;
+                        break;
                     }
                 }
-            }
 
-            dq.addLast(node);
+                if(node != null){
+                    dq.offerLast(node);
+                }
+                continue;
+            }else{
+                dq.addLast(node);
+            }
         }
+
+
         ArrayList<int[]> arl= new ArrayList<>();
         while(!dq.isEmpty()){
             arl.add(dq.pollLast());
