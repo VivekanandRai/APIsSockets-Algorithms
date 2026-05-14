@@ -8,7 +8,7 @@ class Solution {
 
         int ind=1;
         for(int i :nums){
-            if(ind!=i) break;
+            if(ind !=i) break;
             ind++;
         }
         if(ind==cap+1) return true;
