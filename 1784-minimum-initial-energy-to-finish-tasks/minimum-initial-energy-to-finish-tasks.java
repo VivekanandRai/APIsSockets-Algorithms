@@ -4,12 +4,11 @@ class Solution {
         
         int r= 1000000000;
         int l=0;
-        int ans=r;
+        //int ans=r;
         while(l<=r){
             int m=l+(r-l)/2;
 
             if(pass(m ,tasks)){
-                ans=m;
                 r=m-1;
                 continue;
             }else{
@@ -17,7 +16,7 @@ class Solution {
                 continue;
             }
         }
-        return ans;
+        return l;
 
     }
 
