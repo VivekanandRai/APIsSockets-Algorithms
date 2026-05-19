@@ -8,7 +8,7 @@ class Solution {
         while(l<r){
             int m =l+(r-l)/2;
 
-            if(r-l+1==2) return nums[l]<nums[r] ? nums[l]:nums[r];
+            //if(r-l+1==2) return nums[l]<nums[r] ? nums[l]:nums[r];
 
             if(nums[m]>nums[r]){//left sorted+ryt unsorted
                 l=m+1;
