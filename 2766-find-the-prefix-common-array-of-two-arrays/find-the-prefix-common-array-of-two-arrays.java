@@ -21,7 +21,7 @@ class Solution {
         */
         int l= A.length;
         int[] c= new int[l];
-        int[] freq= new int[50+1];
+        int[] freq= new int[l+1];
 
         int common=0;
         for(int i=0;i<l;i++){
