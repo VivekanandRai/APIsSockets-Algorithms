@@ -25,7 +25,7 @@ class Solution {
             maxlen=5000;
         }
         void update(int len, int idx){
-            if(len < maxlen || (len == maxlen && idx < index)){
+            if(len < maxlen ){
                 maxlen = len;
                 index = idx;
             }
