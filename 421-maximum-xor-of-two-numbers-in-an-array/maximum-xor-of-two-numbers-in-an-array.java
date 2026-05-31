@@ -38,7 +38,7 @@ class Solution {
             for(int i=31;i>=0;i--){
                 int bit= (number>>i) &1;
                 ans=ans<<1;
-
+                
                 int desiredbit=bit^1;
 
                 if(curr.child[desiredbit]!= null){
