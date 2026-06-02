@@ -27,8 +27,7 @@ class Solution {
                 continue;
             }
             int xor=root.findmaxxor(x);
-
-            res[ind]=xor;
+            res[ind]=x^xor;
         }
         return res;
     }
@@ -68,12 +67,12 @@ class Solution {
                 ans=ans<<1;//leftshift for saving and formation
 
                 if(curr.child[desired]!=null ){
-                    ans= ans|1;
+                    ans= ans|(desired);
                     curr=curr.child[desired];
 
                 }else{
                     curr=curr.child[bit];
-                    ans=ans|0;
+                    ans=ans|(bit);
                 }
             }
             return ans;
