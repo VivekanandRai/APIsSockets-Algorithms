@@ -1,67 +1,84 @@
 class Solution {
-    boolean[][] vis;
-    HashSet<String> hs = new HashSet<>();
     char[][] board;
-    trienode root= new trienode();
+    boolean[][] vis;
+    List<String> res = new ArrayList<>();
 
-    class trienode{
-        trienode[] child;
-        boolean eow;
+    class trienode {
+        trienode[] child = new trienode[26];
+        String word;
 
-        public trienode(){
-            child=new trienode[26];
-            eow=false;
-        }
-        void insert(String[] words){
-            for(var s:words){
-                trienode curr=root;
+        void insert(String s) {
+            trienode curr = this;
 
-                for(char c:s.toCharArray()){
-                    int ind=c-'a';
-                    if(curr.child[ind]==null) curr.child[ind]=new trienode();
+            for (char c : s.toCharArray()) {
+                int ind = c - 'a';
 
-                    curr=curr.child[ind];
+                if (curr.child[ind] == null) {
+                    curr.child[ind] = new trienode();
                 }
-                curr.eow=true;
+
+                curr = curr.child[ind];
             }
+
+            curr.word = s;
         }
     }
-    void search(int i , int j ,trienode curr , StringBuilder sb){
-        if(i<0 ||j<0 || i>=vis.length || j>= vis[0].length || vis[i][j]) return;
-        int ind=board[i][j]-'a';
-        if(curr.child[ind]==null) return ;
 
-        vis[i][j]=true;
-        int l =sb.length();
-        sb.append(board[i][j]);
+    trienode root = new trienode();
 
-        curr=curr.child[ind];
-        if(curr.eow) hs.add(new String(sb.toString()));
-        
-        search(i+1,j,curr,sb);
-        search(i,j+1,curr,sb);
-        search(i-1,j,curr,sb);
-        search(i,j-1,curr,sb);
-        sb.setLength(l);
-        vis[i][j]=false;
+    void search(int i, int j, trienode curr) {
 
+        if (i < 0 || j < 0 || i >= vis.length || j >= vis[0].length || vis[i][j]) {
+            return;
+        }
+
+        int ind = board[i][j] - 'a';
+
+        if (curr.child[ind] == null) {
+            return;
+        }
+
+        curr = curr.child[ind];
+
+        if (curr.word != null) {
+            res.add(curr.word);
+            curr.word = null;
+        }
+
+        vis[i][j] = true;
+
+        search(i + 1, j, curr);
+        search(i - 1, j, curr);
+        search(i, j + 1, curr);
+        search(i, j - 1, curr);
+
+        vis[i][j] = false;
     }
+
     public List<String> findWords(char[][] board, String[] words) {
-        root.insert(words); 
-        this.board=board;
 
-        int m= board.length;
-        int n= board[0].length;
-        vis= new boolean[m][n];
+        this.board = board;
 
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                char c= board[i][j];
-                int ind= c-'a';
+        for (String s : words) {
+            root.insert(s);
+        }
 
-                if(root.child[ind]!=null) search(i , j , root , new StringBuilder());
+        int m = board.length;
+        int n = board[0].length;
+
+        vis = new boolean[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+
+                int ind = board[i][j] - 'a';
+
+                if (root.child[ind] != null) {
+                    search(i, j, root);
+                }
             }
         }
-        return new ArrayList<>(hs);
+
+        return res;
     }
 }
