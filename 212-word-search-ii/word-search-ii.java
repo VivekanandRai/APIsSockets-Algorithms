@@ -1,6 +1,5 @@
 class Solution {
     char[][] board;
-    boolean[][] vis;
     List<String> res = new ArrayList<>();
 
     class trienode {
@@ -28,11 +27,11 @@ class Solution {
 
     void search(int i, int j, trienode curr) {
 
-        if (i < 0 || j < 0 || i >= vis.length || j >= vis[0].length || vis[i][j]) {
+        if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j]=='*') {
             return;
         }
-
-        int ind = board[i][j] - 'a';
+        char original=board[i][j] ;
+        int ind = original - 'a';
 
         if (curr.child[ind] == null) {
             return;
@@ -45,14 +44,14 @@ class Solution {
             curr.word = null;
         }
 
-        vis[i][j] = true;
+        board[i][j] = '*';
 
         search(i + 1, j, curr);
         search(i - 1, j, curr);
         search(i, j + 1, curr);
         search(i, j - 1, curr);
 
-        vis[i][j] = false;
+        board[i][j] = original;
     }
 
     public List<String> findWords(char[][] board, String[] words) {
@@ -66,7 +65,6 @@ class Solution {
         int m = board.length;
         int n = board[0].length;
 
-        vis = new boolean[m][n];
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
