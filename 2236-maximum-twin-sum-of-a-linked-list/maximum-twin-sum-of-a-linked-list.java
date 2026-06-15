@@ -20,7 +20,7 @@ class Solution {
         int n=arl.size();
         for(int i=0;i<arl.size();i++){
             int twinsum=arl.get(i)+arl.get(n-1-i);
-            maxsum=Math.max(maxsum,twinsum);
+            if(twinsum>maxsum) maxsum=twinsum;
         }
         return maxsum;
     }
