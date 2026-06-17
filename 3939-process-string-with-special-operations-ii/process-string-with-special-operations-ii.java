@@ -4,7 +4,7 @@ class Solution {
 
         for(char c:s.toCharArray()){
             if(Character.isLowerCase(c)) sbl++;
-            else if(c=='#') sbl*=2;
+            else if(c=='#') sbl<<=1;
             else if(c=='*'){
                 if(sbl>0) sbl--;
             }
@@ -21,11 +21,11 @@ class Solution {
             }else if(c=='%'){
                 k= sbl-k-1;
             }else if(c=='#'){
-                long half= sbl/2;
+                long half= sbl>>1;
                 if(k>=half){
                     k=k-half;
                 }
-                sbl/=2;
+                sbl>>=1;
             }else{
                 if(k==sbl-1) return c;
                 else sbl--;
