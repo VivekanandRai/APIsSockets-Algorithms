@@ -3,7 +3,7 @@ class Solution {
         long sbl=0;
 
         for(char c:s.toCharArray()){
-            if(Character.isLowerCase(c)) sbl++;
+            if(c >= 'a' && c <= 'z') sbl++;
             else if(c=='#') sbl<<=1;
             else if(c=='*'){
                 if(sbl>0) sbl--;
