@@ -1,8 +1,9 @@
 class Solution {
     public char processStr(String s, long k) {
         long sbl=0;
+        char[] cc=s.toCharArray();
 
-        for(char c:s.toCharArray()){
+        for(char c:cc){
             if(c >= 'a' && c <= 'z') sbl++;
             else if(c=='#') sbl<<=1;
             else if(c=='*'){
@@ -13,8 +14,8 @@ class Solution {
 
         if(k>=sbl) return def;
 
-        for(int i=s.length()-1;i>=0;i--){
-            char c= s.charAt(i);
+        for(int i=cc.length-1;i>=0;i--){
+            char c= cc[i];
 
             if(c=='*'){
                 sbl++;
