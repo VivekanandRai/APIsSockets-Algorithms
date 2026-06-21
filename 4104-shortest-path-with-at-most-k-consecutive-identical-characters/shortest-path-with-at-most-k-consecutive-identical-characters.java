@@ -25,7 +25,6 @@ class Solution {
         while(!pq.isEmpty()){
             int[] curr= pq.poll();
             int u=curr[0], w=curr[1] ,s=curr[2];
-            if(w >dist[u][s]) continue;
 
             if(adj.get(u).size()==0) continue;
             
@@ -34,12 +33,13 @@ class Solution {
                 int nw=w+nei[1];
                 int ns=1;
                 if(label[u]==label[v]) ns=s+1;
-                if(ns>k || dist[v][ns]<=nw) continue;
+                if(ns>k) continue;
 
-                //if(v==n-1) return nw;
+                if(nw < dist[v][ns]){
+                    dist[v][ns]=nw;
+                    pq.add(new int[]{v,nw,ns});
+                }
 
-                pq.add(new int[]{v, nw , ns});
-                dist[v][ns]=nw;
             }
         }
         int ans=Integer.MAX_VALUE;
