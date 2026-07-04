@@ -7,7 +7,7 @@ class Solution {
         int[][] hmat = new int[m][n];
         for(int[] h : hmat) Arrays.fill(h , Integer.MIN_VALUE);
 
-        var pq= new PriorityQueue<int[]>((a,b)->b[2]-a[2]);
+        var pq= new ArrayDeque<int[]>();
 
         if(grid.get(0).get(0)==1) health--;
 
