@@ -17,7 +17,7 @@ class Solution {
         mat[len-1][column-1]='0';
 
         Integer[] ans = f(0, 0 );
-        if(ans[1]==0) return new int[]{0,0};
+        if(ans[0]==Integer.MIN_VALUE) return new int[]{0,0};
         return new int[]{ ans[0], ans[1]};
     }
 
